@@ -1,6 +1,10 @@
+import { Config } from '../config.js';
+
 export const AIService = {
     // Browser builds should call AI providers through a backend proxy.
-    API_KEY: '',
+    // To enable AI parsing in this static project, set your key in js/config.js.
+    // WARNING: do not commit a real key to GitHub. Use js/config.js locally only.
+    API_KEY: config.API_KEY|| '',
     API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
 
     async parseTimesheetEntry(text, projects) {

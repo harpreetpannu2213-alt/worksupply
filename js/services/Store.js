@@ -10,6 +10,25 @@ export const Store = {
         const stored = localStorage.getItem('worksupply_db');
         if (stored) {
             this.data = JSON.parse(stored);
+
+            const seededEmployeeIds = new Set(['u_emp_1', 'u_emp_2']);
+            const seededTimesheetIds = new Set(['t1', 't2', 't3']);
+            const seededProjectIds = new Set(['p1', 'p2', 'p3']);
+            const seededProjectNames = new Set(['Engineering', 'Design', 'Marketing']);
+
+            // Clean up any previously seeded demo data without deleting valid user-created records.
+            const storedSeededUsers = this.data.users.filter(u => seededEmployeeIds.has(u.id));
+            if (storedSeededUsers.length > 0) {
+                const seededUserIds = storedSeededUsers.map(u => u.id);
+                this.data.users = this.data.users.filter(u => !seededEmployeeIds.has(u.id));
+                this.data.timesheets = this.data.timesheets.filter(t => !seededUserIds.includes(t.userId) && !seededTimesheetIds.has(t.id));
+            }
+
+            if (this.data.projects.some(p => seededProjectIds.has(p.id) || seededProjectNames.has(p.name))) {
+                this.data.projects = this.data.projects.filter(p => !seededProjectIds.has(p.id) && !seededProjectNames.has(p.name));
+            }
+
+            this.save();
         } else {
             // Seed initial mock data
             this.data.users = [
@@ -18,50 +37,16 @@ export const Store = {
                     firstName: 'Work',
                     lastName: 'Supply',
                     email: 'admin@worksupply.com',
-                    password: 'admin',
+                    password: 'Admin@1313',
                     role: 'admin',
                     status: 'Active',
                     project: 'Management',
                     phone: '',
                     location: 'HQ'
-                },
-                {
-                    id: 'u_emp_1',
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    email: 'john@example.com',
-                    password: 'password123',
-                    role: 'employee',
-                    status: 'Active',
-                    project: 'Engineering',
-                    phone: '+1234567890',
-                    location: 'New York',
-                    niff: 'NY-88221'
-                },
-                {
-                    id: 'u_emp_2',
-                    firstName: 'Jane',
-                    lastName: 'Smith',
-                    email: 'jane@example.com',
-                    password: 'password123',
-                    role: 'employee',
-                    status: 'Active',
-                    project: 'Design',
-                    phone: '+1987654321',
-                    location: 'London',
-                    niff: 'LN-44332'
                 }
             ];
-            this.data.projects = [
-                { id: 'p1', name: 'Engineering' },
-                { id: 'p2', name: 'Design' },
-                { id: 'p3', name: 'Marketing' }
-            ];
-            this.data.timesheets = [
-                { id: 't1', userId: 'u_emp_1', hours: ['8', '0', '0', '0', '0', '0', '0'], project: 'Engineering', status: 'Approved', submittedAt: '2023-10-20T10:00:00Z' },
-                { id: 't2', userId: 'u_emp_1', hours: ['7.5', '0', '0', '0', '0', '0', '0'], project: 'Engineering', status: 'Submitted', submittedAt: '2023-10-21T09:30:00Z' },
-                { id: 't3', userId: 'u_emp_2', hours: ['8', '0', '0', '0', '0', '0', '0'], project: 'Design', status: 'Approved', submittedAt: '2023-10-20T11:00:00Z' }
-            ];
+            this.data.projects = [];
+            this.data.timesheets = [];
             this.save();
         }
     },

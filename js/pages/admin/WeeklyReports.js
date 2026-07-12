@@ -165,59 +165,69 @@ export const WeeklyReports = {
         `;
 
         const content = `
-            <div style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <h1 style="margin-bottom: 4px; font-weight: 800;">Timesheet Intelligence</h1>
-                    <p style="color: #718096;">Reviewing ${timesheets.length} submissions for this period.</p>
+            <div style="max-width: 1120px; margin: 0 auto;">
+                <div class="page-header">
+                    <div>
+                        <h1>Weekly Reports</h1>
+                        <p>Track and approve time submissions with fast filtering and export tools.</p>
+                    </div>
+                    <div class="metric-card">
+                        <p>Total Submissions</p>
+                        <strong>${timesheets.length}</strong>
+                    </div>
                 </div>
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-outline" id="clear-reports-btn" style="border-radius: 10px; color: var(--danger); border-color: var(--danger);"><i data-lucide="trash-2"></i> Clear</button>
-                    <button class="btn btn-outline" id="export-excel-btn" style="border-radius: 10px;"><i data-lucide="file-spreadsheet"></i> CSV</button>
-                    <button class="btn btn-outline" id="export-pdf-btn" style="border-radius: 10px;"><i data-lucide="file-text"></i> PDF</button>
-                </div>
-            </div>
 
-            <div class="card" style="padding: 20px; margin-bottom: 24px; background: #1a202c; border-radius: 16px; border: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
-                <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 200px;">
-                        <label style="color: #a0aec0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; display: block;">View Mode</label>
-                        <div style="display: flex; background: #2d3748; padding: 4px; border-radius: 10px; gap: 4px;">
-                            <button id="view-employee-btn" class="btn" style="flex: 1; justify-content: center; font-size: 13px; padding: 8px; background: ${this.viewType === 'employee' ? 'var(--brand-blue)' : 'transparent'}; color: white; border: none; border-radius: 8px;">
-                                By Employee
-                            </button>
-                            <button id="view-project-btn" class="btn" style="flex: 1; justify-content: center; font-size: 13px; padding: 8px; background: ${this.viewType === 'project' ? 'var(--brand-blue)' : 'transparent'}; color: white; border: none; border-radius: 8px;">
-                                By Project
-                            </button>
+                <div class="card" style="padding: 22px; margin-bottom: 24px;">
+                    <div style="display: grid; gap: 18px;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h3 style="margin: 0; font-size: 18px;">Report Controls</h3>
+                                <p style="margin: 6px 0 0 0; color: #64748b; font-size: 13px;">Switch views and export the current report quickly.</p>
+                            </div>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button id="clear-reports-btn" class="btn btn-outline btn-pill" style="border-color: var(--danger); color: var(--danger);">Clear</button>
+                                <button id="export-excel-btn" class="btn btn-outline btn-pill">CSV</button>
+                                <button id="export-pdf-btn" class="btn btn-outline btn-pill">PDF</button>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 16px;">
+                            <div>
+                                <label class="form-label">View Mode</label>
+                                <div style="display: flex; gap: 8px; margin-top: 8px;">
+                                    <button id="view-employee-btn" class="btn btn-pill ${this.viewType === 'employee' ? 'active' : ''}" style="flex: 1;">By Employee</button>
+                                    <button id="view-project-btn" class="btn btn-pill ${this.viewType === 'project' ? 'active' : ''}" style="flex: 1;">By Project</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">Search</label>
+                                <div style="position: relative; margin-top: 8px;">
+                                    <i data-lucide="search" style="position: absolute; left: 14px; top: 14px; width: 16px; color: #a0aec0;"></i>
+                                    <input type="text" id="reports-search" placeholder="Search name, project or NIFF..." value="${this.searchTerm}" class="form-control" style="padding-left: 44px;">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">Pay Period</label>
+                                <select class="form-control" style="margin-top: 8px;">
+                                    ${payPeriods.map(period => `<option>${period}</option>`).join('')}
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-                    <div style="flex: 2; min-width: 250px;">
-                        <label style="color: #a0aec0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; display: block;">Search Filters</label>
-                        <div style="position: relative;">
-                            <i data-lucide="search" style="position: absolute; left: 12px; top: 10px; width: 16px; color: #a0aec0;"></i>
-                            <input type="text" id="reports-search" placeholder="Search name, project or NIFF..."
-                                   value="${this.searchTerm}"
-                                   style="width: 100%; background: #2d3748; border: 1px solid #4a5568; color: white; padding-left: 40px; border-radius: 10px; height: 38px;">
-                        </div>
-                    </div>
-
-                    <div style="flex: 1; min-width: 150px;">
-                        <label style="color: #a0aec0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; display: block;">Pay Period</label>
-                        <select style="background: #2d3748; border: 1px solid #4a5568; color: white; border-radius: 10px; height: 38px;">
-                            ${payPeriods.map(period => `<option>${period}</option>`).join('')}
-                        </select>
-                    </div>
                 </div>
-            </div>
 
-            <div class="card" style="padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid #edf2f7; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-                <div class="table-container" id="reports-table-container">
-                    <table style="white-space: nowrap; width: 100%;">
-                        ${tableHeader}
-                        <tbody id="reports-tbody">
-                            ${rowsHtml}
-                        </tbody>
-                    </table>
+                <div class="table-card">
+                    <div class="card-header">
+                        <h3 style="margin: 0; font-size: 18px;">Submissions</h3>
+                        <span class="badge neutral">${this.viewType === 'employee' ? 'Employee View' : 'Project View'}</span>
+                    </div>
+                    <div class="table-container" id="reports-table-container" style="overflow-x: auto;">
+                        <table style="width: 100%; min-width: 860px;">
+                            ${tableHeader}
+                            <tbody id="reports-tbody">
+                                ${rowsHtml}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         `;

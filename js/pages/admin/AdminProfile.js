@@ -6,74 +6,69 @@ export const AdminProfile = {
         const user = Store.getCurrentUser() || {};
 
         const content = `
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div style="margin-bottom: 32px;">
-                    <h1 style="margin: 0; font-weight: 800; font-size: 28px; color: #0f172a;">Admin Settings</h1>
-                    <p style="color: #64748b; margin-top: 4px;">Manage your account credentials and system data.</p>
+            <div style="max-width: 960px; margin: 0 auto;">
+                <div class="page-header">
+                    <div>
+                        <h1>Admin Settings</h1>
+                        <p>Update your account preferences, security settings, and quick session management in one place.</p>
+                    </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
-                    <!-- Personal Info Card -->
-                    <div class="card" style="border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); background: white; padding: 32px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <div style="width: 40px; height: 40px; border-radius: 10px; background: #f0f9ff; color: #0ea5e9; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="user" style="width: 20px;"></i>
+                <div class="profile-grid">
+                    <div class="profile-card card" style="padding: 28px;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 24px;">
+                            <div class="avatar-large">${user.firstName?.charAt(0) || 'A'}${user.lastName?.charAt(0) || 'P'}</div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 18px;">Personal Information</h3>
+                                <p style="margin: 6px 0 0 0; color: #64748b; font-size: 13px;">Your admin profile details are stored locally in the browser.</p>
                             </div>
-                            <h3 style="margin: 0; font-size: 18px; font-weight: 700;">Personal Information</h3>
                         </div>
-
-                        <form id="admin-profile-form">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                                <div class="form-group">
-                                    <label style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">First Name</label>
-                                    <input type="text" id="adm-fn" value="${user.firstName || ''}" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                        <form id="admin-profile-form" style="display: grid; gap: 18px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div>
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" id="adm-fn" value="${user.firstName || ''}" required class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">Last Name</label>
-                                    <input type="text" id="adm-ln" value="${user.lastName || ''}" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                                <div>
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" id="adm-ln" value="${user.lastName || ''}" required class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group" style="margin-bottom: 24px;">
-                                <label style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">Email Address</label>
-                                <input type="email" id="adm-email" value="${user.email || ''}" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                            <div>
+                                <label class="form-label">Email Address</label>
+                                <input type="email" id="adm-email" value="${user.email || ''}" required class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary" style="height: 48px; border-radius: 12px; font-weight: 700; background: #0ea5e9; width: 200px;">
-                                Update Profile
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-pill" style="width: 180px;">Update Profile</button>
                         </form>
                     </div>
 
-                    <!-- Password Card -->
-                    <div class="card" style="border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); background: white; padding: 32px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <div style="width: 40px; height: 40px; border-radius: 10px; background: #fefce8; color: #ca8a04; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="lock" style="width: 20px;"></i>
+                    <div style="display: grid; gap: 20px;">
+                        <div class="profile-card card" style="padding: 28px;">
+                            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 24px;">
+                                <div style="width: 40px; height: 40px; border-radius: 14px; background: #fef3c7; color: #92400e; display: flex; align-items: center; justify-content: center;"><i data-lucide="lock" style="width: 20px;"></i></div>
+                                <div>
+                                    <h3 style="margin: 0; font-size: 18px;">Security</h3>
+                                    <p style="margin: 6px 0 0 0; color: #64748b; font-size: 13px;">Change your password and keep your access secured.</p>
+                                </div>
                             </div>
-                            <h3 style="margin: 0; font-size: 18px; font-weight: 700;">Security</h3>
+                            <form id="admin-password-form" style="display: grid; gap: 18px;">
+                                <div style="display: grid; gap: 12px;">
+                                    <label class="form-label">New Password</label>
+                                    <input type="password" id="adm-new-pw" placeholder="••••••••" required class="form-control">
+                                </div>
+                                <div style="display: grid; gap: 12px;">
+                                    <label class="form-label">Confirm Password</label>
+                                    <input type="password" id="adm-confirm-pw" placeholder="••••••••" required class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-outline btn-pill" style="width: 180px;">Change Password</button>
+                            </form>
                         </div>
 
-                        <form id="admin-password-form">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                                <div class="form-group">
-                                    <label style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">New Password</label>
-                                    <input type="password" id="adm-new-pw" placeholder="••••••••" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
-                                </div>
-                                <div class="form-group">
-                                    <label style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">Confirm Password</label>
-                                    <input type="password" id="adm-confirm-pw" placeholder="••••••••" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-outline" style="height: 48px; border-radius: 12px; font-weight: 700; color: #0ea5e9; border-color: #0ea5e9; width: 200px;">
-                                Change Password
-                            </button>
-                        </form>
-                    </div>
-
-
-                    <div style="text-align: center; padding: 20px;">
-                         <button id="btn-logout" class="btn btn-ghost" style="color: #64748b; font-weight: 600;">
-                            <i data-lucide="log-out" style="width: 18px;"></i> Logout from System
-                         </button>
+                        <div class="card" style="padding: 24px; background: #eff6ff; border: 1px solid #dbeafe;">
+                            <h3 style="margin-top: 0; font-size: 18px;">Session Control</h3>
+                            <p style="margin: 10px 0 18px 0; color: #475569;">Use the button below to safely end your current admin session.</p>
+                            <button id="btn-logout" class="btn btn-ghost btn-pill" style="width: 100%;">Logout from System</button>
+                        </div>
                     </div>
                 </div>
             </div>

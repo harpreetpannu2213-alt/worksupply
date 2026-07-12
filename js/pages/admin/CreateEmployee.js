@@ -4,19 +4,22 @@ import { Store } from '../../services/Store.js';
 export const CreateEmployee = {
     async render() {
         const users = Store.getUsersByRole('employee');
-        const recentRows = users.reverse().slice(0, 5).map(u => `
+        const recentRows = [...users].reverse().slice(0, 5).map(u => `
             <tr>
                 <td>
                     <div style="font-weight: 500;">${u.firstName} ${u.lastName}</div>
                     <div style="font-size: 12px; color: var(--text-muted);">${u.email}</div>
                 </td>
-                <td>${u.project || '-'}</td>
+                <td>${u.project || 'Unassigned'}</td>
                 <td>Just now</td>
                 <td><span class="badge ${u.status === 'Active' ? 'success' : 'warning'}">${u.status}</span></td>
             </tr>
         `).join('');
 
-        const projects = Store.getProjects().map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+        const projectOptions = Store.getProjects();
+        const projectSelect = projectOptions.length > 0
+            ? projectOptions.map(p => `<option value="${p.name}">${p.name}</option>`).join('')
+            : `<option value="" disabled>No projects available yet</option>`;
 
         const content = `
             <div style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
@@ -54,9 +57,9 @@ export const CreateEmployee = {
                         </div>
                         <div class="form-group">
                             <label>Project Name</label>
-                            <select id="emp-proj-custom" required style="width: 100%; padding: 10px; border-radius: var(--border-radius-md); border: 1px solid var(--border-light);">
-                                <option value="">-- Choose a Project --</option>
-                                ${projects}
+                            <select id="emp-proj-custom" style="width: 100%; padding: 10px; border-radius: var(--border-radius-md); border: 1px solid var(--border-light);">
+                                <option value="">Unassigned</option>
+                                ${projectSelect}
                             </select>
                         </div>
                         <div class="form-group" style="margin-bottom: 24px;">
