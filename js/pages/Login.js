@@ -81,12 +81,6 @@ export const Login = {
                 </div>
             </form>
 
-            <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #edf2f7; display: flex; flex-direction: column; gap: 12px;">
-                <p style="font-size: 11px; text-align: center; text-transform: uppercase; letter-spacing: 1px; color: #a0aec0; font-weight: 700;">Quick Access Demo</p>
-                <div style="display: flex; gap: 10px;">
-                    <button id="fill-admin" style="flex: 1; padding: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 12px; cursor: pointer; color: #64748b; width: 100%;">Admin Login</button>
-                </div>
-            </div>
         `;
 
         container.appendChild(card);
@@ -101,11 +95,6 @@ export const Login = {
         const emailInput = document.getElementById('login-email');
         const passInput = document.getElementById('login-password');
         
-        document.getElementById('fill-admin')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            emailInput.value = 'admin@worksupply.com';
-            passInput.value = 'admin';
-        });
 
         if (form) {
             form.addEventListener('submit', (e) => {
