@@ -15,29 +15,29 @@ export const ManageProjects = {
  
         const projectCards = projects.map(p => `
             <div class="project-card fade-in" data-id="${p.id}"
-                 style="background: white; border-radius: 16px; padding: 20px; border: 1px solid #edf2f7;
-                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; align-items: center;
-                        justify-content: space-between; transition: all 0.2s ease;">
+                 style="background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-light);
+                        box-shadow: var(--shadow-sm); display: flex; align-items: center;
+                        justify-content: space-between; transition: var(--transition);">
                 <div style="flex: 1; display: flex; align-items: center; gap: 16px;">
-                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(18, 140, 126, 0.1);
-                                color: var(--brand-blue); display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--accent-glow);
+                                color: var(--accent-hover); display: flex; align-items: center; justify-content: center; font-weight: 700;">
                         <i data-lucide="briefcase" style="width: 20px;"></i>
                     </div>
                     <div style="flex: 1;">
-                        <div class="project-display" style="font-weight: 700; color: #2d3748; font-size: 16px;">${p.name}</div>
+                        <div class="project-display" style="font-weight: 700; color: var(--text-main); font-size: 16px;">${p.name}</div>
                         <input type="text" class="project-edit-input form-control" value="${p.name}"
-                               style="display: none; width: 100%; height: 36px; font-size: 15px; font-weight: 600;">
-                        <div style="font-size: 12px; color: #a0aec0; margin-top: 2px;">Created: ${p.createdAt || 'N/A'}</div>
+                               style="display: none; width: 100%; height: 36px; font-size: 15px; font-weight: 600; background: var(--bg-elevated);">
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Created: ${p.createdAt || 'N/A'}</div>
                     </div>
                 </div>
                 <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-ghost edit-btn" title="Edit Name" style="color: #4a5568; padding: 8px;">
+                    <button class="btn btn-ghost edit-btn" title="Edit Name" style="color: var(--text-muted); padding: 8px;">
                         <i data-lucide="edit-3" style="width: 18px;"></i>
                     </button>
                     <button class="btn btn-ghost save-btn" title="Save Changes" style="display: none; color: var(--success); padding: 8px;">
                         <i data-lucide="check" style="width: 18px;"></i>
                     </button>
-                    <button class="btn btn-ghost delete-btn" title="Delete Project" style="color: #e53e3e; padding: 8px;">
+                    <button class="btn btn-ghost delete-btn" title="Delete Project" style="color: var(--danger); padding: 8px;">
                         <i data-lucide="trash-2" style="width: 18px;"></i>
                     </button>
                 </div>
@@ -45,7 +45,7 @@ export const ManageProjects = {
         `).join('');
 
         const content = `
-            <div style="max-width: 1120px; margin: 0 auto;">
+            <div class="fade-in" style="max-width: 1120px; margin: 0 auto;">
                 <div class="page-header">
                     <div>
                         <h1>Project Portfolio</h1>
@@ -66,16 +66,16 @@ export const ManageProjects = {
                         <form id="add-project-form">
                             <div style="display: grid; gap: 16px;">
                                 <div>
-                                    <label style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;">Project name</label>
+                                    <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Project name</label>
                                     <input type="text" id="new-project-name" placeholder="e.g. Central Plaza Phase 2" required class="form-control" style="margin-top: 8px;">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-pill" style="width: 100%;">Create Project</button>
                             </div>
                         </form>
 
-                        <div style="margin-top: 28px; padding: 20px; border-radius: 20px; background: #f8fafc; border: 1px solid #e2e8f0;">
-                            <h4 style="margin-top: 0; font-size: 14px; color: #1e293b;">Tips</h4>
-                            <ul style="padding-left: 18px; margin: 12px 0 0 0; color: #475569; line-height: 1.7; font-size: 13px;">
+                        <div style="margin-top: 28px; padding: 20px; border-radius: 20px; background: var(--bg-elevated); border: 1px solid var(--border-light);">
+                            <h4 style="margin-top: 0; font-size: 14px; color: var(--text-main);">Tips</h4>
+                            <ul style="padding-left: 18px; margin: 12px 0 0 0; color: var(--text-muted); line-height: 1.7; font-size: 13px;">
                                 <li>Use distinct project names for easy search.</li>
                                 <li>Edits are preserved in local browser storage.</li>
                             </ul>
@@ -89,16 +89,16 @@ export const ManageProjects = {
                                 <span class="badge neutral">Search</span>
                             </div>
                             <div style="position: relative; margin-top: 18px;">
-                                <i data-lucide="search" style="position: absolute; left: 16px; top: 14px; width: 18px; color: #a0aec0;"></i>
-                                <input type="text" id="project-search" placeholder="Filter projects by name..." value="${this.searchTerm}" class="form-control" style="width: 100%; padding-left: 46px;">
+                                <i data-lucide="search" style="position: absolute; left: 16px; top: 14px; width: 18px; color: var(--text-light);"></i>
+                                <input type="text" id="project-search" placeholder="Filter projects by name..." value="${this.searchTerm}" class="form-control" style="width: 100%; padding-left: 46px; background: var(--bg-card);">
                             </div>
                         </div>
 
                         <div style="display: grid; gap: 16px;">
                             ${projectCards || `
-                                <div class="card" style="text-align: center; padding: 48px; color: #94a3b8;">
-                                    <i data-lucide="inbox" style="width: 48px; height: 48px; color: #cbd5e0; margin-bottom: 16px;"></i>
-                                    <h3 style="margin: 0 0 10px 0; font-size: 18px; color: #1e293b;">${projects.length === 0 ? 'No active projects yet' : 'No matching projects found'}</h3>
+                                <div class="card" style="text-align: center; padding: 48px; color: var(--text-light);">
+                                    <i data-lucide="inbox" style="width: 48px; height: 48px; color: var(--text-light); margin-bottom: 16px;"></i>
+                                    <h3 style="margin: 0 0 10px 0; font-size: 18px; color: var(--text-main);">${projects.length === 0 ? 'No active projects yet' : 'No matching projects found'}</h3>
                                     <p style="margin: 0;">${emptyProjectMessage}</p>
                                 </div>
                             `}
@@ -111,6 +111,8 @@ export const ManageProjects = {
     },
 
     async afterRender() {
+        if (window.lucide) window.lucide.createIcons();
+
         const searchInput = document.getElementById('project-search');
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
@@ -149,8 +151,8 @@ export const ManageProjects = {
                 input.focus();
                 editBtn.style.display = 'none';
                 saveBtn.style.display = 'inline-flex';
-                card.style.borderColor = 'var(--brand-blue)';
-                card.style.boxShadow = '0 10px 15px -3px rgba(18, 140, 126, 0.1)';
+                card.style.borderColor = 'var(--accent)';
+                card.style.boxShadow = '0 0 12px rgba(99, 102, 241, 0.15)';
             };
 
             saveBtn.onclick = (e) => {

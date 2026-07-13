@@ -37,69 +37,71 @@ export const SubmitHours = {
         });
 
         let content = `
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
-                <div>
-                    <h1 style="margin-bottom: 8px;">Submit Weekly Hours</h1>
-                    <p>Current Week: ${formatWeekDate(weekStart)} - ${formatWeekDate(weekEnd)}, ${weekEnd.getFullYear()}</p>
-                </div>
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-primary" id="btn-submit-ts" style="padding: 12px 24px; font-weight: 600;">
-                        <i data-lucide="send"></i> Submit Timesheet
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
-                <div style="padding: 20px; border-bottom: 1px solid var(--border-light); background: var(--bg-main); display: flex; flex-wrap: wrap; gap: 24px;">
-                    <div style="flex: 1; min-width: 200px;">
-                        <label style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; display: block;">Project / Client</label>
-                        <select id="ts-project" style="width: 100%; padding: 10px; border: 1px solid var(--border-light); border-radius: var(--border-radius-md); font-size: 14px; background: white;">
-                            ${projects || '<option value="">No projects</option>'}
-                        </select>
+            <div class="fade-in" style="max-width: 1000px; margin: 0 auto;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <h1 style="margin-bottom: 8px;">Submit Weekly Hours</h1>
+                        <p style="color: var(--text-muted);">Current Week: ${formatWeekDate(weekStart)} - ${formatWeekDate(weekEnd)}, ${weekEnd.getFullYear()}</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" id="btn-submit-ts" style="padding: 12px 24px;">
+                            <i data-lucide="send"></i> Submit Timesheet
+                        </button>
                     </div>
                 </div>
 
-                <div class="time-grid-header time-grid" style="padding-top: 16px; grid-template-columns: 1fr 1fr 2fr;">
-                    <div>Day</div>
-                    <div>Hours</div>
-                    <div>Notes</div>
-                </div>
+                <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 32px;">
+                    <div style="padding: 24px; border-bottom: 1px solid var(--border-light); background: var(--bg-elevated); display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
+                        <div style="flex: 1; min-width: 280px; max-width: 400px;">
+                            <label style="margin-bottom: 8px; display: block;">Project / Client</label>
+                            <select id="ts-project" style="width: 100%; padding: 12px; background: var(--bg-card);">
+                                ${projects || '<option value="">No projects</option>'}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="time-grid-header time-grid" style="grid-template-columns: 180px 140px 1fr;">
+                        <div>Day</div>
+                        <div>Hours</div>
+                        <div>Notes</div>
+                    </div>
         `;
 
         days.forEach(day => {
             content += `
-                <div class="time-grid" style="background-color: ${day.isWeekend ? 'var(--bg-main)' : 'white'}; grid-template-columns: 1fr 1fr 2fr; align-items: center; border-bottom: 1px solid var(--border-light); padding: 12px 16px;">
+                <div class="time-grid" style="background-color: ${day.isWeekend ? 'rgba(255,255,255,0.01)' : 'transparent'}; grid-template-columns: 180px 140px 1fr; align-items: center; border-bottom: 1px solid var(--border-light); padding: 16px 24px;">
                     <div>
-                        <div class="day-label ${day.isWeekend ? 'weekend' : ''}" style="font-weight: 600; color: var(--text-main);">${day.label}</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">${day.date}</div>
+                        <div class="day-label ${day.isWeekend ? 'weekend' : ''}">${day.label}</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">${day.date}</div>
                     </div>
                     <div>
                         <input type="number" step="0.5" min="0" max="24" value="${day.hours}"
                             class="ts-hours-input"
-                            style="width: 80px; padding: 10px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 16px; font-weight: 600; color: var(--brand-blue); text-align: center;"
+                            style="width: 90px; padding: 10px; border: 1.5px solid var(--border-light); border-radius: var(--border-radius-sm); font-size: 16px; font-weight: 700; color: var(--accent-hover); text-align: center; background: var(--bg-glass);"
                             data-day="${day.id}">
                     </div>
                     <div>
-                        <input type="text" placeholder="Add note..." class="ts-notes-input" style="width: 100%; padding: 10px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 14px;" data-day="${day.id}">
+                        <input type="text" placeholder="Add note..." class="ts-notes-input" style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-light); border-radius: var(--border-radius-sm); font-size: 14px; background: var(--bg-glass);" data-day="${day.id}">
                     </div>
                 </div>
             `;
         });
 
         content += `
-                <div style="padding: 24px; background: var(--bg-main); display: flex; justify-content: flex-end; align-items: center; gap: 16px; border-top: 1px solid var(--border-light);">
-                    <div style="font-size: 14px; color: var(--text-muted); font-weight: 600;">WEEKLY TOTAL:</div>
-                    <div style="font-size: 28px; font-weight: 800; color: var(--brand-blue);" id="ts-grand-total">40.00</div>
-                    <div style="font-size: 14px; font-weight: 600; color: var(--text-muted);">HRS</div>
+                    <div style="padding: 24px 32px; background: var(--bg-elevated); display: flex; justify-content: flex-end; align-items: center; gap: 16px; border-top: 1px solid var(--border-light);">
+                        <div style="font-size: 14px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;">WEEKLY TOTAL:</div>
+                        <div style="font-size: 32px; font-weight: 900; color: var(--accent-hover); font-family: 'Outfit', sans-serif;" id="ts-grand-total">40.00</div>
+                        <div style="font-size: 14px; font-weight: 700; color: var(--text-muted);">HRS</div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="card bg-warning-bg" style="border-left: 4px solid var(--warning);">
-                <div style="display: flex; gap: 12px; color: var(--warning);">
-                    <i data-lucide="info"></i>
-                    <div>
-                        <h4 style="margin-bottom: 4px; color: var(--warning);">Important Note</h4>
-                        <p style="color: var(--text-main); font-size: 13px; opacity: 0.9;">Please ensure your total weekly hours are accurate before submitting. Submitted timesheets are sent directly to management for approval.</p>
+                
+                <div class="card" style="border-left: 4px solid var(--warning); background: var(--warning-bg); border-color: var(--warning-border);">
+                    <div style="display: flex; gap: 14px; color: var(--warning);">
+                        <i data-lucide="info" style="margin-top: 2px;"></i>
+                        <div>
+                            <h4 style="margin-bottom: 6px; color: var(--warning); font-weight: 700;">Important Note</h4>
+                            <p style="color: var(--text-main); font-size: 13.5px; opacity: 0.9; line-height: 1.5;">Please ensure your total weekly hours are accurate before submitting. Submitted timesheets are sent directly to management for approval.</p>
+                        </div>
                     </div>
                 </div>
             </div>

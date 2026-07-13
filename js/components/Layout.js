@@ -1,5 +1,6 @@
 import { Sidebar } from './Sidebar.js';
 import { Topbar } from './Topbar.js';
+import { AIChat } from './AIChat.js';
 
 export const Layout = {
     render(contentHtml, role = 'employee', currentPath = '', topbarTitle = 'Dashboard') {
@@ -25,6 +26,10 @@ export const Layout = {
 
         container.appendChild(sidebarElement);
         container.appendChild(contentContainer);
+
+        // Append floating AI chat assistant
+        const aiChatElement = AIChat.render();
+        container.appendChild(aiChatElement);
 
         return container;
     }

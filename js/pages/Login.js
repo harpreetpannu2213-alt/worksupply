@@ -10,77 +10,72 @@ export const Login = {
             height: 100vh;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #075e54 0%, #128c7e 100%);
             position: relative;
             overflow: hidden;
         `;
         
-        // Add some decorative organic shapes
-        const shape1 = document.createElement('div');
-        shape1.style.cssText = 'position: absolute; top: -10%; left: -5%; width: 400px; height: 400px; background: rgba(37, 211, 102, 0.1); border-radius: 50%; filter: blur(80px);';
-        const shape2 = document.createElement('div');
-        shape2.style.cssText = 'position: absolute; bottom: -10%; right: -5%; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; filter: blur(60px);';
-        container.appendChild(shape1);
-        container.appendChild(shape2);
+        // Add animated gradient mesh and floating orbs
+        const mesh = document.createElement('div');
+        mesh.className = 'animated-mesh-bg';
+        mesh.innerHTML = `
+            <div class="floating-orb floating-orb-1"></div>
+            <div class="floating-orb floating-orb-2"></div>
+        `;
+        container.appendChild(mesh);
 
         const card = document.createElement('div');
-        card.className = 'fade-in';
+        card.className = 'card glass-card fade-in';
         card.style.cssText = `
             width: 100%;
             max-width: 420px;
             padding: 48px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             z-index: 10;
             margin: 20px;
         `;
 
         card.innerHTML = `
             <div style="text-align: center; margin-bottom: 40px;">
-                <div style="font-size: 32px; font-weight: 900; letter-spacing: -1px; color: #111b21; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <i data-lucide="shield-check" style="width: 32px; height: 32px; color: #25d366;"></i>
-                    WORK<span style="color: #128c7e;">SUPPLY</span>
+                <div style="font-size: 32px; font-weight: 900; letter-spacing: -1px; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif;">
+                    <i data-lucide="shield-check" style="width: 32px; height: 32px; color: var(--accent-hover);"></i>
+                    WORK<span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SUPPLY</span>
                 </div>
-                <p style="color: #667781; font-size: 15px; font-weight: 500;">Welcome back. Please sign in to continue.</p>
+                <p style="color: var(--text-muted); font-size: 15px; font-weight: 500;">Welcome back. Please sign in to continue.</p>
             </div>
 
             <form id="login-form">
                 <div class="form-group" style="margin-bottom: 24px;">
-                    <label style="font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #4a5568; margin-bottom: 8px;">Email Address</label>
+                    <label>Email Address</label>
                     <div style="position: relative;">
-                        <i data-lucide="mail" style="position: absolute; left: 14px; top: 12px; width: 18px; color: #a0aec0;"></i>
+                        <i data-lucide="mail" style="position: absolute; left: 14px; top: 12px; width: 18px; color: var(--text-light);"></i>
                         <input type="email" id="login-email" placeholder="name@worksupply.com" required
-                               style="padding-left: 44px; height: 48px; border-radius: 12px; border: 1.5px solid #e2e8f0; font-size: 15px;">
+                               style="padding-left: 44px; height: 48px;">
                     </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #4a5568; margin-bottom: 8px;">Password</label>
+                    <label>Password</label>
                     <div style="position: relative;">
-                        <i data-lucide="lock" style="position: absolute; left: 14px; top: 12px; width: 18px; color: #a0aec0;"></i>
+                        <i data-lucide="lock" style="position: absolute; left: 14px; top: 12px; width: 18px; color: var(--text-light);"></i>
                         <input type="password" id="login-password" placeholder="••••••••" required
-                               style="padding-left: 44px; height: 48px; border-radius: 12px; border: 1.5px solid #e2e8f0; font-size: 15px;">
+                               style="padding-left: 44px; height: 48px;">
                     </div>
                 </div>
 
-                <div id="login-error" style="color: #ef4444; font-size: 13px; margin-bottom: 16px; display: none; background: #fef2f2; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #fee2e2;">
+                <div id="login-error" class="badge danger" style="width: 100%; display: none; margin-bottom: 16px; justify-content: center; padding: 10px; border-radius: 8px;">
                     Invalid email or password. Please try again.
                 </div>
 
                 <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 32px;">
-                    <a href="#/forgot-password" style="font-size: 14px; color: #128c7e; text-decoration: none; font-weight: 600;">Forgot password?</a>
+                    <a href="#/forgot-password" style="font-size: 14px; color: var(--accent-hover); text-decoration: none; font-weight: 600;">Forgot password?</a>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 52px; font-size: 16px; font-weight: 700; border-radius: 16px; background: #128c7e; box-shadow: 0 10px 15px -3px rgba(18, 140, 126, 0.3);">
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 52px; font-size: 16px; font-weight: 700; border-radius: var(--border-radius-md);">
                     Sign In
                 </button>
 
-                <div style="margin-top: 32px; text-align: center; font-size: 15px; color: #667781;">
-                    New to WorkSupply? <a href="#/register" style="color: #128c7e; text-decoration: none; font-weight: 700;">Create Account</a>
+                <div style="margin-top: 32px; text-align: center; font-size: 15px; color: var(--text-muted);">
+                    New to WorkSupply? <a href="#/register" style="color: var(--accent-hover); text-decoration: none; font-weight: 700;">Create Account</a>
                 </div>
             </form>
-
         `;
 
         container.appendChild(card);
@@ -94,7 +89,6 @@ export const Login = {
         const err = document.getElementById('login-error');
         const emailInput = document.getElementById('login-email');
         const passInput = document.getElementById('login-password');
-        
 
         if (form) {
             form.addEventListener('submit', (e) => {
@@ -107,7 +101,7 @@ export const Login = {
                         window.location.hash = '/employee/dashboard';
                     }
                 } else {
-                    err.style.display = 'block';
+                    err.style.display = 'inline-flex';
                 }
             });
         }

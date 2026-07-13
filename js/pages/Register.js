@@ -12,75 +12,72 @@ export const Register = {
             height: 100vh;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #075e54 0%, #128c7e 100%);
             position: relative;
             overflow: hidden;
         `;
 
-        // Add some decorative organic shapes
-        const shape1 = document.createElement('div');
-        shape1.style.cssText = 'position: absolute; top: -10%; left: -5%; width: 400px; height: 400px; background: rgba(37, 211, 102, 0.1); border-radius: 50%; filter: blur(80px);';
-        const shape2 = document.createElement('div');
-        shape2.style.cssText = 'position: absolute; bottom: -10%; right: -5%; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; filter: blur(60px);';
-        container.appendChild(shape1);
-        container.appendChild(shape2);
+        // Add animated gradient mesh and floating orbs
+        const mesh = document.createElement('div');
+        mesh.className = 'animated-mesh-bg';
+        mesh.innerHTML = `
+            <div class="floating-orb floating-orb-1"></div>
+            <div class="floating-orb floating-orb-2"></div>
+        `;
+        container.appendChild(mesh);
 
         const card = document.createElement('div');
-        card.className = 'fade-in';
+        card.className = 'card glass-card fade-in';
         card.style.cssText = `
             width: 100%;
             max-width: 500px;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             z-index: 10;
             margin: 20px;
             overflow-y: auto;
             max-height: 90vh;
+            scrollbar-width: thin;
         `;
 
         card.innerHTML = `
             <div style="text-align: center; margin-bottom: 32px;">
-                <div style="font-size: 28px; font-weight: 900; letter-spacing: -1px; color: #111b21; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <i data-lucide="user-plus" style="width: 28px; height: 28px; color: #25d366;"></i>
-                    WORK<span style="color: #128c7e;">SUPPLY</span>
+                <div style="font-size: 28px; font-weight: 900; letter-spacing: -1px; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif;">
+                    <i data-lucide="user-plus" style="width: 28px; height: 28px; color: var(--accent-hover);"></i>
+                    WORK<span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SUPPLY</span>
                 </div>
-                <h3 style="font-weight: 800; color: #1e293b; margin-top: 16px;">Create Account</h3>
-                <p style="color: #667781; font-size: 14px; font-weight: 500;">Join the team and start tracking your hours.</p>
+                <h3 style="font-weight: 800; color: var(--text-main); margin-top: 16px;">Create Account</h3>
+                <p style="color: var(--text-muted); font-size: 14px; font-weight: 500;">Join the team and start tracking your hours.</p>
             </div>
 
             <form id="register-form">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
                     <div class="form-group">
-                        <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">First Name</label>
-                        <input type="text" id="reg-fn" placeholder="John" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                        <label>First Name</label>
+                        <input type="text" id="reg-fn" placeholder="John" required style="height: 44px;">
                     </div>
                     <div class="form-group">
-                        <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">Last Name</label>
-                        <input type="text" id="reg-ln" placeholder="Doe" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                        <label>Last Name</label>
+                        <input type="text" id="reg-ln" placeholder="Doe" required style="height: 44px;">
                     </div>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">Email Address</label>
-                    <input type="email" id="reg-email" placeholder="john.doe@worksupply.com" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                    <label>Email Address</label>
+                    <input type="email" id="reg-email" placeholder="john.doe@worksupply.com" required style="height: 44px;">
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">Phone Number (WhatsApp)</label>
-                    <input type="text" id="reg-phone" placeholder="+15551234567" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                    <label>Phone Number (WhatsApp)</label>
+                    <input type="text" id="reg-phone" placeholder="+15551234567" required style="height: 44px;">
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">NIFF Number</label>
-                    <input type="text" id="reg-niff" placeholder="e.g. PT-123456789" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                    <label>NIFF Number</label>
+                    <input type="text" id="reg-niff" placeholder="e.g. PT-123456789" required style="height: 44px;">
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">Project / Department</label>
-                    <select id="reg-project" required style="width: 100%; height: 44px; padding: 0 12px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px; background: white;">
+                    <label>Project / Department</label>
+                    <select id="reg-project" required style="width: 100%; height: 44px; padding: 0 12px; background: var(--bg-card);">
                         <option value="">-- Select Project --</option>
                         ${projects}
                     </select>
@@ -88,23 +85,23 @@ export const Register = {
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
                     <div class="form-group">
-                        <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">Password</label>
-                        <input type="password" id="reg-password" placeholder="••••••••" required minlength="6" style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                        <label>Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required minlength="6" style="height: 44px;">
                     </div>
                     <div class="form-group">
-                        <label style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; display: block;">Confirm</label>
-                        <input type="password" id="reg-confirm" placeholder="••••••••" required style="height: 44px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px;">
+                        <label>Confirm</label>
+                        <input type="password" id="reg-confirm" placeholder="••••••••" required style="height: 44px;">
                     </div>
                 </div>
 
-                <div id="reg-error" style="color: #ef4444; font-size: 13px; margin-bottom: 16px; display: none; background: #fef2f2; padding: 10px; border-radius: 8px; text-align: center;"></div>
+                <div id="reg-error" class="badge danger" style="width: 100%; display: none; margin-bottom: 16px; justify-content: center; padding: 10px; border-radius: 8px;"></div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 52px; font-size: 16px; font-weight: 700; border-radius: 16px; background: #128c7e; box-shadow: 0 10px 15px -3px rgba(18, 140, 126, 0.3);">
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 52px; font-size: 16px; font-weight: 700; border-radius: var(--border-radius-md);">
                     Create Account
                 </button>
 
-                <div style="margin-top: 32px; text-align: center; font-size: 15px; color: #667781;">
-                    Already have an account? <a href="#/login" style="color: #128c7e; text-decoration: none; font-weight: 700;">Sign In</a>
+                <div style="margin-top: 32px; text-align: center; font-size: 15px; color: var(--text-muted);">
+                    Already have an account? <a href="#/login" style="color: var(--accent-hover); text-decoration: none; font-weight: 700;">Sign In</a>
                 </div>
             </form>
         `;
@@ -133,7 +130,7 @@ export const Register = {
 
                 if (pass !== confirm) {
                     err.textContent = 'Passwords do not match';
-                    err.style.display = 'block';
+                    err.style.display = 'inline-flex';
                     return;
                 }
 
@@ -141,7 +138,7 @@ export const Register = {
                 const existing = Store.getUsers().find(u => u.email === email);
                 if (existing) {
                     err.textContent = 'Email already registered';
-                    err.style.display = 'block';
+                    err.style.display = 'inline-flex';
                     return;
                 }
 

@@ -26,7 +26,9 @@ export const Directory = {
 
         const userItems = users.map(user => `
             <div class="directory-item fade-in${this.selectedUser && this.selectedUser.id === user.id ? ' active' : ''}" data-id="${user.id}">
-                <div class="directory-item-avatar" style="background: ${user.status === 'Active' ? 'var(--brand-blue)' : 'var(--text-light)'};">${user.firstName.charAt(0)}${user.lastName.charAt(0)}</div>
+                <div class="directory-item-avatar" style="background: ${user.status === 'Active' ? 'var(--accent-gradient)' : 'var(--text-light)'};">
+                    ${user.firstName.charAt(0)}${user.lastName.charAt(0)}
+                </div>
                 <div class="directory-item-meta">
                     <h4>${user.firstName} ${user.lastName}</h4>
                     <p>${user.project || 'Unassigned'} • ${user.status}</p>
@@ -54,7 +56,7 @@ export const Directory = {
                         </div>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
                             <button id="view-full-profile" class="btn btn-outline" style="font-size: 13px;">View Profile</button>
-                            <button class="btn btn-primary" style="padding: 10px;">Edit</button>
+                            <button class="btn btn-primary" style="padding: 10px 18px; font-size: 13px;">Edit</button>
                         </div>
                     </div>
                     <div class="detail-grid">
@@ -108,11 +110,8 @@ export const Directory = {
             </div>
         `;
 
-        const showList = !isMobile || !this.selectedUser;
-        const showDetails = !isMobile || !!this.selectedUser;
-
         const content = `
-            <div style="max-width: 1200px; margin: 0 auto; height: 100%; display: flex; flex-direction: column;">
+            <div class="fade-in" style="max-width: 1200px; margin: 0 auto; height: 100%; display: flex; flex-direction: column;">
                 <div class="page-header">
                     <div>
                         <h1>Team Directory</h1>
@@ -129,14 +128,14 @@ export const Directory = {
                     <aside class="directory-sidebar card">
                         <div class="directory-sidebar-header">
                             <h2>People</h2>
-                            <p style="margin: 0; color: var(--text-muted);">Search, filter and select team members from the roster.</p>
-                            <div style="position: relative;">
+                            <p style="margin: 0; color: var(--text-muted); font-size: 13px;">Search, filter and select team members from the roster.</p>
+                            <div style="position: relative; margin-top: 12px;">
                                 <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; color: var(--text-light);"></i>
                                 <input id="dir-search" type="text" placeholder="Search members..." value="${this.searchTerm}"
                                        style="width: 100%; padding: 12px 14px 12px 42px; border-radius: var(--border-radius-md); border: 1px solid var(--border-light); background: var(--bg-card); font-size: 14px;">
                             </div>
                         </div>
-                        <div class="directory-list">
+                        <div class="directory-list" style="margin-top: 12px;">
                             ${userItems || `<div class="empty-state">No members found</div>`}
                         </div>
                     </aside>

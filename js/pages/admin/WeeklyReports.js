@@ -41,7 +41,7 @@ export const WeeklyReports = {
         
         let rowsHtml = '';
         if (timesheets.length === 0) {
-            rowsHtml = '<tr><td colspan="12" style="text-align:center; padding: 30px; color: var(--text-muted);">No timesheets have been submitted yet.</td></tr>';
+            rowsHtml = '<tr><td colspan="12" style="text-align: center; padding: 40px; color: var(--text-muted);">No timesheets have been submitted yet.</td></tr>';
         } else {
             if (this.viewType === 'employee') {
                 rowsHtml = timesheets
@@ -58,21 +58,21 @@ export const WeeklyReports = {
                         const total = ts.hours.reduce((sum, val) => sum + parseFloat(val || 0), 0).toFixed(1);
                         return `
                             <tr>
-                                <td class="view-profile-trigger" data-user-id="${user.id}" style="position: sticky; left: 0; background: var(--bg-card); z-index: 10; border-right: 1px solid var(--border-light); font-weight: 600; cursor: pointer; color: var(--brand-blue);">
+                                <td class="view-profile-trigger" data-user-id="${user.id}" style="position: sticky; left: 0; background: var(--bg-card); z-index: 10; border-right: 1px solid var(--border-light); font-weight: 600; cursor: pointer; color: var(--accent-hover);">
                                     ${user.firstName} ${user.lastName}
                                 </td>
-                                <td><span class="badge" style="background: #e2e8f0; color: #4a5568;">${ts.project || '-'}</span></td>
-                                <td style="${ts.hours[0] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[0] || '-'}</td>
-                                <td style="${ts.hours[1] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[1] || '-'}</td>
-                                <td style="${ts.hours[2] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[2] || '-'}</td>
-                                <td style="${ts.hours[3] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[3] || '-'}</td>
-                                <td style="${ts.hours[4] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[4] || '-'}</td>
-                                <td style="${ts.hours[5] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[5] || '-'}</td>
-                                <td style="${ts.hours[6] == 0 ? 'color: var(--text-muted);' : ''}">${ts.hours[6] || '-'}</td>
-                                <td style="font-weight: 700; color: var(--brand-blue);">${total}</td>
-                                <td style="font-family: monospace; color: #4a5568; font-weight: 600;">${user.niff || '-'}</td>
+                                <td><span class="badge neutral">${ts.project || '-'}</span></td>
+                                <td style="${ts.hours[0] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[0] || '-'}</td>
+                                <td style="${ts.hours[1] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[1] || '-'}</td>
+                                <td style="${ts.hours[2] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[2] || '-'}</td>
+                                <td style="${ts.hours[3] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[3] || '-'}</td>
+                                <td style="${ts.hours[4] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[4] || '-'}</td>
+                                <td style="${ts.hours[5] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[5] || '-'}</td>
+                                <td style="${ts.hours[6] == 0 ? 'color: var(--text-light);' : ''}">${ts.hours[6] || '-'}</td>
+                                <td style="font-weight: 700; color: var(--accent-hover);">${total}</td>
+                                <td style="font-family: monospace; color: var(--text-muted); font-weight: 600;">${user.niff || '-'}</td>
                                 <td>
-                                    <button class="btn btn-ghost approve-btn" data-id="${ts.id}" style="padding: 4px; color: ${ts.status === 'Approved' ? 'var(--text-muted)' : 'var(--success)'};" ${ts.status === 'Approved' ? 'disabled' : ''}>
+                                    <button class="btn btn-ghost approve-btn" data-id="${ts.id}" style="padding: 4px; color: ${ts.status === 'Approved' ? 'var(--text-light)' : 'var(--success)'};" ${ts.status === 'Approved' ? 'disabled' : ''}>
                                         <i data-lucide="${ts.status === 'Approved' ? 'check-check' : 'check-circle'}" style="width: 18px;"></i>
                                     </button>
                                 </td>
@@ -98,9 +98,9 @@ export const WeeklyReports = {
                         const user = users.find(u => u.id === ts.userId) || {};
                         const userTotal = ts.hours.reduce((sum, val) => sum + parseFloat(val || 0), 0).toFixed(1);
                         return `
-                            <tr style="background: #fcfdfd;">
-                                <td class="view-profile-trigger" data-user-id="${user.id}" style="padding-left: 32px; color: #4a5568; cursor: pointer; font-weight: 600;">${user.firstName} ${user.lastName}</td>
-                                <td style="font-family: monospace; font-weight: 600; color: var(--brand-blue);">${user.niff || '-'}</td>
+                            <tr style="background: rgba(255, 255, 255, 0.01);">
+                                <td class="view-profile-trigger" data-user-id="${user.id}" style="padding-left: 32px; color: var(--text-muted); cursor: pointer; font-weight: 600;">${user.firstName} ${user.lastName}</td>
+                                <td style="font-family: monospace; font-weight: 600; color: var(--accent-hover);">${user.niff || '-'}</td>
                                 <td>${ts.hours[0] || '0'}</td>
                                 <td>${ts.hours[1] || '0'}</td>
                                 <td>${ts.hours[2] || '0'}</td>
@@ -115,12 +115,12 @@ export const WeeklyReports = {
                     }).join('');
 
                     return `
-                        <tr style="background: #f8fafc;">
-                            <td colspan="9" style="font-weight: 800; color: #1a202c; border-left: 4px solid var(--brand-blue);">
-                                <i data-lucide="folder" style="width: 16px; display: inline-block; vertical-align: middle; margin-right: 8px; color: var(--brand-blue);"></i>
+                        <tr style="background: var(--bg-elevated);">
+                            <td colspan="9" style="font-weight: 800; color: var(--text-main); border-left: 4px solid var(--accent);">
+                                <i data-lucide="folder" style="width: 16px; display: inline-block; vertical-align: middle; margin-right: 8px; color: var(--accent-hover);"></i>
                                 ${projectName} (${group.length} Members)
                             </td>
-                            <td style="font-weight: 800; color: var(--brand-blue);">${projectTotal}</td>
+                            <td style="font-weight: 800; color: var(--accent-hover);">${projectTotal}</td>
                             <td colspan="2"></td>
                         </tr>
                         ${groupRows}
@@ -131,8 +131,8 @@ export const WeeklyReports = {
 
         const tableHeader = this.viewType === 'employee' ? `
             <thead>
-                <tr style="background: #f8fafc;">
-                    <th style="position: sticky; left: 0; background: #f8fafc; z-index: 10;">Employee</th>
+                <tr>
+                    <th style="position: sticky; left: 0; background: var(--bg-elevated); z-index: 10;">Employee</th>
                     <th>Project</th>
                     <th>Mon</th>
                     <th>Tue</th>
@@ -148,7 +148,7 @@ export const WeeklyReports = {
             </thead>
         ` : `
             <thead>
-                <tr style="background: #f8fafc;">
+                <tr>
                     <th style="padding-left: 32px;">Project / Employee</th>
                     <th>NIFF Number</th>
                     <th>Mon</th>
@@ -165,7 +165,7 @@ export const WeeklyReports = {
         `;
 
         const content = `
-            <div style="max-width: 1120px; margin: 0 auto;">
+            <div class="fade-in" style="max-width: 1120px; margin: 0 auto;">
                 <div class="page-header">
                     <div>
                         <h1>Weekly Reports</h1>
@@ -177,12 +177,12 @@ export const WeeklyReports = {
                     </div>
                 </div>
 
-                <div class="card" style="padding: 22px; margin-bottom: 24px;">
-                    <div style="display: grid; gap: 18px;">
+                <div class="card" style="padding: 24px; margin-bottom: 24px;">
+                    <div style="display: grid; gap: 20px;">
                         <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;">
                             <div>
                                 <h3 style="margin: 0; font-size: 18px;">Report Controls</h3>
-                                <p style="margin: 6px 0 0 0; color: #64748b; font-size: 13px;">Switch views and export the current report quickly.</p>
+                                <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 13px;">Switch views and export the current report quickly.</p>
                             </div>
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="clear-reports-btn" class="btn btn-outline btn-pill" style="border-color: var(--danger); color: var(--danger);">Clear</button>
@@ -194,20 +194,20 @@ export const WeeklyReports = {
                             <div>
                                 <label class="form-label">View Mode</label>
                                 <div style="display: flex; gap: 8px; margin-top: 8px;">
-                                    <button id="view-employee-btn" class="btn btn-pill ${this.viewType === 'employee' ? 'active' : ''}" style="flex: 1;">By Employee</button>
-                                    <button id="view-project-btn" class="btn btn-pill ${this.viewType === 'project' ? 'active' : ''}" style="flex: 1;">By Project</button>
+                                    <button id="view-employee-btn" class="btn btn-pill ${this.viewType === 'employee' ? 'active' : ''}" style="flex: 1; padding: 10px 0;">By Employee</button>
+                                    <button id="view-project-btn" class="btn btn-pill ${this.viewType === 'project' ? 'active' : ''}" style="flex: 1; padding: 10px 0;">By Project</button>
                                 </div>
                             </div>
                             <div>
                                 <label class="form-label">Search</label>
                                 <div style="position: relative; margin-top: 8px;">
-                                    <i data-lucide="search" style="position: absolute; left: 14px; top: 14px; width: 16px; color: #a0aec0;"></i>
+                                    <i data-lucide="search" style="position: absolute; left: 14px; top: 14px; width: 16px; color: var(--text-light);"></i>
                                     <input type="text" id="reports-search" placeholder="Search name, project or NIFF..." value="${this.searchTerm}" class="form-control" style="padding-left: 44px;">
                                 </div>
                             </div>
                             <div>
                                 <label class="form-label">Pay Period</label>
-                                <select class="form-control" style="margin-top: 8px;">
+                                <select class="form-control" style="margin-top: 8px; background: var(--bg-card);">
                                     ${payPeriods.map(period => `<option>${period}</option>`).join('')}
                                 </select>
                             </div>
@@ -216,11 +216,11 @@ export const WeeklyReports = {
                 </div>
 
                 <div class="table-card">
-                    <div class="card-header">
+                    <div class="card-header" style="padding: 20px 20px 0 20px;">
                         <h3 style="margin: 0; font-size: 18px;">Submissions</h3>
                         <span class="badge neutral">${this.viewType === 'employee' ? 'Employee View' : 'Project View'}</span>
                     </div>
-                    <div class="table-container" id="reports-table-container" style="overflow-x: auto;">
+                    <div class="table-container" id="reports-table-container" style="overflow-x: auto; margin-top: 16px;">
                         <table style="width: 100%; min-width: 860px;">
                             ${tableHeader}
                             <tbody id="reports-tbody">
@@ -235,6 +235,8 @@ export const WeeklyReports = {
     },
 
     async afterRender() {
+        if (window.lucide) window.lucide.createIcons();
+
         const tbody = document.getElementById('reports-tbody');
         if (tbody) {
             tbody.addEventListener('click', (e) => {
@@ -302,9 +304,7 @@ export const WeeklyReports = {
         // CSV/Excel Export
         const excelBtn = document.getElementById('export-excel-btn');
         if (excelBtn) {
-            console.log('CSV Export: Found button in afterRender');
             excelBtn.onclick = () => {
-                console.log('CSV Export: Button clicked via onclick');
                 const timesheets = Store.getTimesheets();
                 if (timesheets.length === 0) {
                     alert('No data to export.');
@@ -328,13 +328,10 @@ export const WeeklyReports = {
                 });
 
                 const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-                console.log('CSV Export: Blob created');
 
                 if (window.AndroidBridge) {
-                    console.log('CSV Export: Using AndroidBridge');
                     const reader = new FileReader();
                     reader.onload = function() {
-                        console.log('CSV Export: FileReader loaded, calling saveFile');
                         window.AndroidBridge.saveFile(reader.result, 'weekly_reports.csv', 'text/csv');
                     };
                     reader.readAsDataURL(blob);
@@ -354,9 +351,7 @@ export const WeeklyReports = {
         // PDF Export
         const pdfBtn = document.getElementById('export-pdf-btn');
         if (pdfBtn) {
-            console.log('PDF Export: Found button in afterRender');
             pdfBtn.onclick = () => {
-                console.log('PDF Export: Button clicked via onclick');
                 const timesheets = Store.getTimesheets();
                 if (timesheets.length === 0) {
                     alert('No data to export.');
@@ -367,7 +362,7 @@ export const WeeklyReports = {
                 pdfBtn.innerHTML = 'Generating...';
                 pdfBtn.disabled = true;
                 
-                // Use a dedicated wrapper for PDF to ensure clean formatting
+                // Use a dedicated wrapper for PDF to ensure clean formatting (KEEPING WHITE BACKGROUND FOR EXPORT)
                 const pdfContainer = document.createElement('div');
                 pdfContainer.style.cssText = `
                     padding: 40px;
@@ -378,13 +373,13 @@ export const WeeklyReports = {
                 `;
 
                 const headerHtml = `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px; border-bottom: 2px solid #128c7e; padding-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px; border-bottom: 2px solid #6366f1; padding-bottom: 20px;">
                         <div>
-                            <h1 style="color: #128c7e; margin: 0; font-size: 24px;">WORKSUPPLY - Weekly Report</h1>
+                            <h1 style="color: #6366f1; margin: 0; font-size: 24px; font-family: sans-serif;">WORKSUPPLY - Weekly Report</h1>
                             <p style="color: #666; margin: 5px 0 0 0;">Generated on ${new Date().toLocaleDateString()}</p>
                         </div>
                         <div style="text-align: right;">
-                            <p style="margin: 0; font-weight: bold;">View Mode: ${this.viewType === 'employee' ? 'By Employee' : 'By Project'}</p>
+                            <p style="margin: 0; font-weight: bold; color: black;">View Mode: ${this.viewType === 'employee' ? 'By Employee' : 'By Project'}</p>
                             <p style="margin: 5px 0 0 0; color: #666;">Total Records: ${timesheets.length}</p>
                         </div>
                     </div>
@@ -436,13 +431,10 @@ export const WeeklyReports = {
                 };
                 
                 if (window.html2pdf) {
-                    console.log('PDF Export: html2pdf found, starting worker');
                     const worker = window.html2pdf().set(opt).from(pdfContainer);
 
                     if (window.AndroidBridge) {
-                        console.log('PDF Export: Using AndroidBridge');
                         worker.outputPdf('datauristring').then((pdfBase64) => {
-                            console.log('PDF Export: PDF generated, calling saveFile');
                             window.AndroidBridge.saveFile(pdfBase64, fileName, 'application/pdf');
                             cleanup();
                         });

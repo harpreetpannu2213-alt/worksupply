@@ -21,7 +21,7 @@ export const Sidebar = {
             links = [
                 { name: 'Dashboard', path: '/employee/dashboard', icon: 'layout-dashboard' },
                 { name: 'Submit Hours', path: '/employee/submit', icon: 'clock' },
-                { name: 'My Profile', path: '/employee/dashboard', icon: 'user' },
+                { name: 'My Profile', path: '/employee/profile', icon: 'user' },
                 { name: 'WhatsApp Support', path: 'https://wa.me/15550000000', icon: 'message-circle', external: true }
             ];
         }
@@ -30,7 +30,7 @@ export const Sidebar = {
             <a href="${link.external ? link.path : '#' + link.path}"
                ${link.external ? 'target="_blank"' : ''}
                class="nav-item ${currentPath === link.path ? 'active' : ''}"
-               style="${link.external ? 'margin-top: auto; color: #25D366; font-weight: 700;' : ''}">
+               style="${link.external ? 'margin-top: auto; color: var(--success); font-weight: 700; border-top: 1px solid var(--border-light); padding-top: 16px; border-radius: 0;' : ''}">
                 <i data-lucide="${link.icon}"></i>
                 ${link.name}
             </a>

@@ -6,17 +6,17 @@ export const Topbar = {
         container.className = 'topbar';
         
         container.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="flex items-center" style="gap: 16px;">
                 <button id="toggle-sidebar" class="btn btn-ghost" style="padding: 8px;">
                     <i data-lucide="menu"></i>
                 </button>
                 <h2>${title}</h2>
             </div>
             <div class="topbar-right">
-                <button class="btn btn-ghost">
+                <button class="btn btn-ghost" style="padding: 8px;">
                     <i data-lucide="bell"></i>
                 </button>
-                <a href="#/login" id="logout-btn" class="btn btn-outline" style="text-decoration:none;">
+                <a href="#/login" id="logout-btn" class="btn btn-outline" style="text-decoration: none;">
                     <i data-lucide="log-out"></i>
                     Logout
                 </a>
